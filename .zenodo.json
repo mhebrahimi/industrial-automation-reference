@@ -1,0 +1,11 @@
+{
+  "title": "Industrial Automation Reference Table (Goods and Services) — version 189-r24",
+  "upload_type": "dataset",
+  "description": "<p>An open technical reference of industrial automation goods and services families (189 items: 134 goods, 14 integrated systems, 27 software/platforms, 14 services), with Iranian 8-digit customs tariff codes (Export and Import Regulations Book 1405), EU Combined Nomenclature (CN 2026) codes with identical HS6, ISIC Rev.4 / Rev.5 and WZ 2025 activity codes, technical features, standards, protocols, Purdue level and RAMI 4.0 layer. Includes a static Persian search interface, a structured JSON knowledge package, and a matching report for 64 submitted HS codes.</p><p>This is a technical reference of automation families, not a customs ruling for any specific product. SHA-256 of the Excel source file: 4df7ca41a2b8885e2f8358a2e5f44da10dad2657fbfb1bbc570b3d9b864f42ce.</p>",
+  "creators": [{"name": "mhebrahimi"}],
+  "license": "cc-by-4.0",
+  "version": "189-r24",
+  "publication_date": "2026-11-20",
+  "language": "fas",
+  "keywords": ["industrial automation", "HS code", "customs tariff", "Iran", "Combined Nomenclature", "ISIC", "IEC 62443", "Purdue model", "RAMI 4.0", "reference data"]
+}

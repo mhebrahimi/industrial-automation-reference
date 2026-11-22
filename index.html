@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>استعلام جدول مرجع کالاها و خدمات اتوماسیون صنعتی</title>
+<meta name="description" content="جستجوی کالا، خدمت و کد تعرفه (HS) در جدول مرجع اتوماسیون صنعتی">
+<style>
+@font-face{font-family:Vazirmatn;font-weight:400;font-display:swap;src:url(assets/fonts/vazirmatn-arabic-400-normal.woff2) format("woff2");unicode-range:U+0600-06FF,U+200C-200E,U+FB50-FDFF,U+FE70-FEFF}
+@font-face{font-family:Vazirmatn;font-weight:700;font-display:swap;src:url(assets/fonts/vazirmatn-arabic-700-normal.woff2) format("woff2");unicode-range:U+0600-06FF,U+200C-200E,U+FB50-FDFF,U+FE70-FEFF}
+@font-face{font-family:Vazirmatn;font-weight:400;font-display:swap;src:url(assets/fonts/vazirmatn-latin-400-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F}
+@font-face{font-family:Vazirmatn;font-weight:700;font-display:swap;src:url(assets/fonts/vazirmatn-latin-700-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F}
+:root{--bg:#f6f7f9;--card:#fff;--ink:#1a202c;--mute:#5a6474;--line:#e2e6ec;--pri:#1f4e79;--pri2:#e8f0f8;--ok:#e6f4ea;--okt:#1e6b34;--sec:#e3f6fa;--sect:#086f83;--warn:#fff4e5;--warnt:#8a4b00}
+@media (prefers-color-scheme:dark){:root{--bg:#12161c;--card:#1b2129;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2c3440;--pri:#7fb2e5;--pri2:#1e2b3a;--ok:#163222;--okt:#8fd6a5;--sec:#123038;--sect:#7fd3e3;--warn:#3a2a12;--warnt:#f3c27a}}
+*{box-sizing:border-box}
+body{margin:0;font-family:Vazirmatn,Tahoma,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.8}
+header{background:var(--card);border-bottom:1px solid var(--line);padding:14px 20px}
+header h1{margin:0;font-size:19px;color:var(--pri)}
+header .ver{font-size:12.5px;color:var(--mute)}
+nav{display:flex;gap:4px;margin-top:10px;flex-wrap:wrap}
+nav button{font:inherit;border:1px solid var(--line);background:transparent;color:var(--ink);padding:4px 14px;border-radius:8px;cursor:pointer}
+nav button[aria-selected=true]{background:var(--pri);color:#fff;border-color:var(--pri)}
+main{max-width:1100px;margin:0 auto;padding:16px}
+.search{display:flex;gap:8px;flex-wrap:wrap}
+.search input{flex:1 1 320px;font:inherit;font-size:16px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)}
+.search select{font:inherit;padding:8px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);max-width:220px}
+.hint{color:var(--mute);font-size:13px;margin:6px 2px 12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:10px}
+.card h3{margin:0 0 4px;font-size:16px}
+.card h3 a{color:var(--pri);text-decoration:none;cursor:pointer}
+.meta{font-size:12.5px;color:var(--mute)}
+.code,.ltr{direction:ltr;unicode-bidi:isolate;font-family:ui-monospace,Consolas,monospace;font-size:.95em}
+.badge{display:inline-block;font-size:12px;padding:1px 9px;border-radius:999px;background:var(--pri2);color:var(--pri);margin-left:4px}
+.badge.ok{background:var(--ok);color:var(--okt)}.badge.sec{background:var(--sec);color:var(--sect)}.badge.warn{background:var(--warn);color:var(--warnt)}
+.kv{display:grid;grid-template-columns:220px 1fr;gap:6px 14px;margin-top:8px}
+.kv dt{color:var(--mute);font-size:13.5px}.kv dd{margin:0}
+@media (max-width:640px){.kv{grid-template-columns:1fr}.kv dt{margin-top:6px}}
+.tags span{display:inline-block;background:var(--pri2);color:var(--pri);border-radius:6px;padding:0 7px;margin:2px;font-size:12.5px;direction:ltr}
+table{width:100%;border-collapse:collapse;background:var(--card);font-size:13.5px}
+th,td{border:1px solid var(--line);padding:5px 8px;text-align:right;vertical-align:top}
+th{background:var(--pri2)}
+.notice{background:var(--warn);color:var(--warnt);border-radius:10px;padding:10px 14px;font-size:13.5px;margin:12px 0}
+.back{font:inherit;border:0;background:none;color:var(--pri);cursor:pointer;padding:0;margin-bottom:8px}
+footer{max-width:1100px;margin:20px auto;padding:0 16px 24px;color:var(--mute);font-size:12.5px}
+details summary{cursor:pointer;color:var(--pri)}
+mark{background:#ffe58a;color:inherit;border-radius:3px}
+</style>
+</head>
+<body>
+<header>
+  <h1>جدول مرجع کالاها و خدمات اتوماسیون صنعتی</h1>
+  <div class="ver" id="ver"></div>
+  <nav role="tablist">
+    <button role="tab" data-v="search" aria-selected="true">جستجو</button>
+    <button role="tab" data-v="tax">طبقه‌بندی</button>
+    <button role="tab" data-v="codes">کدهای تعرفه</button>
+    <button role="tab" data-v="about">درباره و قواعد</button>
+  </nav>
+</header>
+<main id="app"></main>
+<footer>
+  این جدول مرجع فنی خانواده‌های اتوماسیون صنعتی است و تأیید اظهار گمرکی یک کالای مشخص نیست؛ تطبیق نهایی کالا با کد به مشخصات فنی همان کالا نیاز دارد. سطوح امنیتی (SL) و ظرفیت دوقلوی دیجیتال ارزیابی رده‌اند، نه گواهی محصول.
+  <span id="sha"></span>
+</footer>
+<script src="data/kb.js"></script>
+<script>
+(function(){
+const KB=window.KB, $=s=>document.querySelector(s), app=$('#app');
+const E=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const FA='۰۱۲۳۴۵۶۷۸۹', AR='٠١٢٣٤٥٦٧٨٩';
+function norm(s){return String(s??'').replace(/[۰-۹]/g,d=>FA.indexOf(d)).replace(/[٠-٩]/g,d=>AR.indexOf(d))
+  .replace(/ي/g,'ی').replace(/ك/g,'ک').replace(/[ةۀ]/g,'ه').replace(/[أإآ]/g,'ا').replace(/[ً-ْ]/g,'')
+  .replace(/‌/g,'').replace(/[-_/|،,.()«»:;]+/g,' ').toLowerCase().replace(/\s+/g,' ').trim();}
+const REC=KB.records, BYREF={}; REC.forEach(r=>BYREF[r.ref_code]=r);
+const CODES={}; KB.hs_codes.forEach(c=>CODES[c.code]=c);
+const MERGED={}; (KB.merged_records||[]).forEach(m=>MERGED[m['شناسه قبلی']]=m);
+const FIELDS=[['title',6],['key_features',3],['description',2],['classification_note',2],['sub_category',1.5],['main_category',1],['standards_reference',1],['target_industries',.5]];
+REC.forEach(r=>{r._n={};FIELDS.forEach(([f])=>r._n[f]=norm(r[f]));});
+const SYN=[['فلومتر','جریان','flow'],['دبی','جریان','flow'],['درایو','drive','اینورتر'],['اینورتر','inverter','درایو'],['حسگر','سنسور','sensor'],['سنسور','حسگر','sensor'],
+ ['پی ال سی','plc','کنترلر منطقی'],['plc','کنترلر منطقی'],['ربات','robot'],['شیر','valve'],['ولو','شیر','valve'],['کنترلر','controller'],['ترانسمیتر','transmitter'],
+ ['فشار','pressure'],['دما','temperature'],['دماسنج','دما','temperature'],['سطح','level'],['انکودر','encoder'],['موتور','motor'],['سروو','servo'],['تابلو','panel','enclosure'],
+ ['سوئیچ','switch'],['سوییچ','switch','سوئیچ'],['روتر','router'],['فایروال','firewall'],['اسکادا','scada'],['دی سی اس','dcs'],['اچ ام آی','hmi'],['یو پی اس','ups'],
+ ['باتری','battery'],['کنتور','meter'],['آنالایزر','analyzer'],['کالیبراسیون','calibration'],['آموزش','training'],['مشاوره','consulting'],['نرم افزار','software']].map(a=>a.map(norm));
+function syn(t){const out=new Set([t]);for(const g of SYN){if(g.some(x=>x===t))g.forEach(x=>out.add(x));}return [...out];}
+const LBL={}; (KB.dictionary||[]).forEach(d=>LBL[d['فیلد (key)']]=d['نام فارسی']);
+$('#ver').innerHTML=`نسخه <span class="ltr">${E(KB.meta.version)}</span> — ${E(String(KB.meta.date).replace(/^[\d-]+\s*/,''))} — ${REC.length} قلم، ${KB.hs_codes.filter(c=>c.relation==='کد اصلی').length} کد تعرفه اصلی، ${KB.hs_codes.filter(c=>c.relation!=='کد اصلی').length} کد فرعی`;
+$('#sha').innerHTML=`<br>فایل مبدأ: <span class="ltr">${E(KB.meta.source_file)}</span> — SHA-256: <span class="ltr">${E(KB.meta.sha256)}</span>`;
+
+function duty(c){return c&&c.duty_pct!=null?`${c.duty_pct}٪`:'—';}
+function codeBadge(code){const c=CODES[code];if(!c)return `<span class="code">${E(code)}</span>`;
+  const cls=c.relation==='کد اصلی'?'ok':(c.relation.startsWith('کد جایگزین')?'sec':'warn');
+  return `<a class="code" href="#code/${code}">${code}</a> <span class="badge ${cls}">${E(c.relation==='کد اصلی'?'کد اصلی':c.relation.startsWith('کد جایگزین')?'کد فرعی مشروط':c.relation)}</span>`;}
+
+function search(q,flt){
+  const nq=norm(q); const res=[]; let codeHits=[];
+  const digits=nq.replace(/\s/g,'');
+  if(/^\d{4,8}$/.test(digits)){
+    codeHits=KB.hs_codes.filter(c=>c.code.startsWith(digits));
+  }
+  const ref=nq.match(/^ia ?(\d{1,6})$/);
+  if(ref){const r=BYREF['IA-'+ref[1].padStart(6,'0')];return {codeHits:[],res:r?[r]:[],loose:false};}
+  const toks=nq.split(' ').filter(t=>t.length>1||/\d/.test(t));
+  REC.forEach(r=>{
+    if(flt.kind&&r.record_kind!==flt.kind)return; if(flt.cat&&r.main_category!==flt.cat)return; if(flt.dom&&r.functional_domain!==flt.dom)return;
+    let s=0;
+    if(/^\d{4,8}$/.test(digits)){ if(String(r.hs_ir||'').startsWith(digits))s+=50; if((r.secondary_codes||[]).some(c=>c.startsWith(digits)))s+=20; }
+    if(toks.length&&!/^\d{4,8}$/.test(digits)){
+      let miss=0;
+      for(const t of toks){let hit=0;for(const v of syn(t))for(const [f,w] of FIELDS){if(r._n[f].includes(v))hit+=w;} if(!hit)miss++; s+=hit;}
+      r._miss=miss; if(miss)s=s*0.01;
+    }
+    if(!toks.length&&!digits)s=1;
+    if(s>0)res.push([s,r]);
+  });
+  res.sort((a,b)=>b[0]-a[0]||a[1].id-b[1].id);
+  const strict=res.filter(x=>!x[1]._miss||!toks.length||/^\d{4,8}$/.test(digits));
+  if(strict.length||!toks.length||/^\d{4,8}$/.test(digits)) return {codeHits,res:strict.map(x=>x[1]),loose:false};
+  return {codeHits,res:res.slice(0,20).map(x=>x[1]),loose:true};
+}
+
+let state={q:'',kind:'',cat:'',dom:''};
+function opts(list,cur,all){return `<option value="">${all}</option>`+list.map(v=>`<option ${v===cur?'selected':''}>${E(v)}</option>`).join('');}
+function viewSearch(){
+  app.innerHTML=`<div class="search">
+   <input id="q" type="search" placeholder="نام کالا، کلیدواژه، پروتکل، کد تعرفه (۴ تا ۸ رقم) یا شناسه IA-…" value="${E(state.q)}" autofocus>
+   <select id="kind">${opts(KB.lists.record_kind,state.kind,'همه انواع')}</select>
+   <select id="cat">${opts(KB.lists.main_category,state.cat,'همه دسته‌ها')}</select>
+   <select id="dom">${opts(KB.lists.functional_domain,state.dom,'همه حوزه‌ها')}</select></div>
+   <div class="hint">نمونه: «فلومتر»، «PROFINET»، «درایو»، «8504»، «85044050»، «IA-000116». جستجو حروف عربی و فارسی، نیم‌فاصله و ارقام فارسی را یکسان می‌گیرد.</div>
+   <div id="out"></div>`;
+  const run=()=>{state.q=$('#q').value;state.kind=$('#kind').value;state.cat=$('#cat').value;state.dom=$('#dom').value;render();};
+  ['#q'].forEach(s=>$(s).addEventListener('input',run));['#kind','#cat','#dom'].forEach(s=>$(s).addEventListener('change',run));
+  render();
+}
+function render(){
+  const {codeHits,res,loose}=search(state.q,state);
+  let h='';
+  if(loose)h+=`<div class="notice">قلمی با همه واژه‌های جستجو پیدا نشد؛ نزدیک‌ترین نتایج نمایش داده می‌شود.</div>`;
+  if(codeHits.length){
+    h+=`<div class="card"><h3>کدهای تعرفه منطبق (${codeHits.length})</h3><table><tr><th>کد</th><th>نوع</th><th>شرح ردیف ۱۴۰۵</th><th>حقوق ورودی</th><th>رکوردها</th></tr>`+
+      codeHits.slice(0,40).map(c=>`<tr><td><a class="code" href="#code/${c.code}">${c.code}</a></td><td>${E(c.relation)}</td><td>${E(c.desc_1405)}</td><td>${duty(c)}</td><td>${c.records.map(r=>`<a href="#rec/${r}">${r}</a>`).join('، ')}</td></tr>`).join('')+`</table></div>`;
+  }
+  const q=norm(state.q).replace(/\s/g,'');
+  if(/^\d{4,8}$/.test(q)&&!codeHits.length) h+=`<div class="notice">کدی با شروع <span class="code">${E(q)}</span> در جدول مرجع نیست. این به معنای نامعتبر بودن کد نیست؛ ممکن است کالای آن طبق قاعده دامنه خارج از جدول باشد.</div>`;
+  const m=state.q.match(/IA-?\s*0*(\d{1,6})/i); if(m){const id='IA-'+m[1].padStart(6,'0'); if(MERGED[id]) h+=`<div class="notice">شناسه ${id} در رکورد <a href="#rec/${MERGED[id]['شناسه مقصد']}">${MERGED[id]['شناسه مقصد']}</a> ادغام شده است.</div>`;}
+  h+=`<div class="meta" style="margin:4px 2px 8px">${res.length} قلم</div>`;
+  h+=res.slice(0,80).map(r=>`<div class="card"><h3><a href="#rec/${r.ref_code}">${E(r.title)}</a></h3>
+    <div class="meta"><span class="code">${r.ref_code}</span> · ${E(r.record_kind)} · ${E(r.main_category)} › ${E(r.sub_category)}${r.hs_ir?` · کد اصلی: <span class="code">${r.hs_ir}</span>`:''}</div>
+    <div>${E(String(r.description||'').slice(0,220))}${String(r.description||'').length>220?'…':''}</div></div>`).join('');
+  if(res.length>80)h+=`<div class="hint">۸۰ نتیجه نخست نمایش داده شد؛ جستجو را دقیق‌تر کنید.</div>`;
+  if(!res.length&&!codeHits.length&&state.q&&!/^\d{4,8}$/.test(q)&&!(m&&MERGED['IA-'+m[1].padStart(6,'0')]))h+=`<div class="notice">نتیجه‌ای در جدول مرجع پیدا نشد.</div>`;
+  $('#out').innerHTML=h;
+}
+const ORDER=['main_category','sub_category_code','sub_category','functional_domain','record_kind','description','key_features','standards_reference','complexity','target_industries','industry4','purdue_level','rami40_layer','sl_target_iec62443','sl_capability_iec62443','digital_twin_readiness','isic_rev4','isic_rev5','wz_2025'];
+function viewRec(ref){
+  const r=BYREF[ref]; if(!r){const m=MERGED[ref]; app.innerHTML=m?`<div class="notice">این شناسه در <a href="#rec/${m['شناسه مقصد']}">${m['شناسه مقصد']}</a> ادغام شده است.</div>`:`<div class="notice">شناسه پیدا نشد.</div>`;return;}
+  const mc=CODES[r.hs_ir];
+  let h=`<button class="back" onclick="history.back()">→ بازگشت</button><div class="card"><h3>${E(r.title)}</h3><div class="meta"><span class="code">${r.ref_code}</span> · ${E(r.record_kind)}</div>`;
+  h+=`<h4>طبقه‌بندی گمرکی</h4>`;
+  if(r.hs_ir){h+=`<dl class="kv"><dt>کد تعرفه ایران (اصلی)</dt><dd>${codeBadge(r.hs_ir)} — ${E(mc&&mc.desc_1405)} — واحد ${E(mc&&mc.unit)} — حقوق ورودی ${duty(mc)}</dd>
+    <dt>کد تعرفه اروپا (CN)</dt><dd class="code">${E(r.cn_eu)}</dd></dl>`;}
+  else h+=`<div class="meta">نرم‌افزار و خدمت کد گمرکی ندارند.</div>`;
+  if(r.classification_note)h+=`<dl class="kv"><dt>نکته طبقه‌بندی</dt><dd>${E(r.classification_note)}</dd></dl>`;
+  if((r.secondary_codes||[]).length){h+=`<table style="margin-top:8px"><tr><th>کد فرعی</th><th>نوع ارتباط</th><th>شرح ردیف ۱۴۰۵</th><th>حقوق ورودی</th></tr>`+
+    r.secondary_codes.map(c=>{const x=CODES[c];const rl=x?(x.relation==='کد اصلی'?`کد اصلی رکورد دیگر (${x.records.map(q=>`<a href="#rec/${q}">${q}</a>`).join('، ')})`:E(x.relation)):'';return `<tr><td><a class="code" href="#code/${c}">${c}</a></td><td>${rl}</td><td>${E(x?x.desc_1405:'')}</td><td>${duty(x)}</td></tr>`}).join('')+`</table>
+    <div class="hint">کد اصلی به همه زیرنوع‌ها تعمیم داده نمی‌شود؛ کد فرعی فقط برای همان نوع خاص کالا معتبر است.</div>`;}
+  h+=`<h4>مشخصات</h4><dl class="kv">`;
+  for(const k of ORDER){let v=r[k]; if(v==null||v==='')continue;
+    if(k==='key_features')v=`<span class="tags">${r.key_features_list.map(t=>`<span>${E(t)}</span>`).join('')}</span>`;
+    else if(k==='standards_reference'||k==='target_industries')v=E(String(v).split(/\s*\|\s*/).join('، '));
+    else v=E(v);
+    h+=`<dt>${E(LBL[k]||k)}</dt><dd>${v}</dd>`;}
+  h+=`</dl></div>`;
+  app.innerHTML=h; window.scrollTo(0,0);
+}
+function viewCode(code){
+  const c=CODES[code]; let h=`<button class="back" onclick="history.back()">→ بازگشت</button>`;
+  if(!c){app.innerHTML=h+`<div class="notice">کد <span class="code">${E(code)}</span> در جدول مرجع نیست.</div>`;return;}
+  h+=`<div class="card"><h3 class="code">${c.code}</h3><dl class="kv"><dt>نوع</dt><dd>${E(c.relation)}</dd><dt>HS6</dt><dd class="code">${E(c.hs6)}</dd>
+    <dt>شرح ردیف در جدول تعرفه ۱۴۰۵</dt><dd>${E(c.desc_1405)}</dd><dt>واحد شمارش</dt><dd>${E(c.unit)}</dd><dt>حقوق ورودی ۱۴۰۵</dt><dd>${duty(c)}</dd>
+    ${c.cn_eu?`<dt>کد اروپا (CN)</dt><dd class="code">${E(c.cn_eu)}</dd>`:''}</dl>
+    <h4>رکوردهای مرتبط</h4>`+c.records.map(r=>{const x=BYREF[r];return `<div><a href="#rec/${r}">${r}</a> — ${E(x?x.title:'')}</div>`}).join('');
+  if(c.relation!=='کد اصلی')h+=`<div class="notice">این کد، کد فرعی است و فقط برای نوع خاصی از کالا که در «نکته طبقه‌بندی» رکورد آمده معتبر است.</div>`;
+  app.innerHTML=h+`</div>`; window.scrollTo(0,0);
+}
+function viewTax(){
+  const cats=KB.taxonomy.filter(t=>t['سطح']==='دسته اصلی');
+  app.innerHTML=cats.map(c=>{const subs=KB.taxonomy.filter(t=>t['سطح']!=='دسته اصلی'&&String(t['کد']).split('.')[0]===String(c['کد']));
+    return `<div class="card"><h3>${E(c['کد'])}. ${E(c['دسته اصلی'])} <span class="badge">${c['تعداد قلم']} قلم</span></h3><div class="meta">${E(c['دامنه و تعریف'])}</div>`+
+    subs.map(s=>{const rs=REC.filter(r=>r.sub_category_code===String(s['کد']));return `<details><summary>${E(s['کد'])} ${E(s['زیردسته'])} (${rs.length})</summary><div class="meta">${E(s['دامنه و تعریف'])}</div>${rs.map(r=>`<div>• <a href="#rec/${r.ref_code}">${E(r.title)}</a>${r.hs_ir?` <span class="code">${r.hs_ir}</span>`:''}</div>`).join('')}</details>`}).join('')+`</div>`}).join('');
+}
+function viewCodes(){
+  const main=KB.hs_codes.filter(c=>c.relation==='کد اصلی'), sec=KB.hs_codes.filter(c=>c.relation!=='کد اصلی');
+  const tbl=(l,t)=>`<div class="card"><h3>${t} (${l.length})</h3><table><tr><th>کد</th><th>شرح ردیف ۱۴۰۵</th><th>واحد</th><th>حقوق ورودی</th>${t.includes('فرعی')?'<th>نوع ارتباط</th>':''}<th>رکوردها</th></tr>`+
+    l.map(c=>`<tr><td><a class="code" href="#code/${c.code}">${c.code}</a></td><td>${E(c.desc_1405)}</td><td>${E(c.unit)}</td><td>${duty(c)}</td>${t.includes('فرعی')?`<td>${E(c.relation)}</td>`:''}<td>${c.records.map(r=>`<a href="#rec/${r}">${r}</a>`).join('، ')}</td></tr>`).join('')+`</table></div>`;
+  app.innerHTML=tbl(main,'کدهای تعرفه اصلی')+tbl(sec,'کدهای فرعی');
+}
+function viewAbout(){
+  const g=KB.guide; const keys=Object.keys(g).filter(k=>!k.startsWith('جدول مرجع'));
+  app.innerHTML=`<div class="card"><h3>درباره جدول</h3><dl class="kv">${keys.map(k=>`<dt>${E(k)}</dt><dd>${E(g[k])}</dd>`).join('')}</dl></div>
+  <div class="card"><h3>دریافت داده</h3><div><a href="data/Industrial-Automation-Reference-189-r24.xlsx">فایل اکسل جدول مرجع</a> · <a href="data/ia-reference-kb-189-r24.json">بسته داده JSON</a> · <a href="data/HS-Code-Matching-Report-189-r24.pdf">گزارش تطبیق کدهای ارسالی</a></div></div>`;
+}
+function route(){
+  const h=decodeURIComponent(location.hash.slice(1)); const [v,a]=h.split('/');
+  document.querySelectorAll('nav button').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.v===(v==='rec'||v==='code'?'':v||'search'))));
+  if(v==='rec')viewRec(a); else if(v==='code')viewCode(a); else if(v==='tax')viewTax(); else if(v==='codes')viewCodes(); else if(v==='about')viewAbout(); else viewSearch();
+}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{location.hash=b.dataset.v;});
+window.addEventListener('hashchange',route); route();
+})();
+</script>
+</body>
+</html>
