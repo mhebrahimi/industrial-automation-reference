@@ -1,5 +1,9 @@
 # جدول مرجع کالاها و خدمات اتوماسیون صنعتی
 
+[![DOI](https://zenodo.org/badge/1467539172.svg)](https://doi.org/10.5281/zenodo.24441028)
+
+🔎 **سامانه استعلام آنلاین:** https://mhebrahimi.github.io/industrial-automation-reference/
+
 **نسخه 189-r24 — ۲۹ آبان ۱۴۰۵ (2026-11-20)**
 
 مرجع فنی و باز خانواده‌های کالا و خدمات اتوماسیون صنعتی، همراه با کد تعرفه گمرکی ایران (۸ رقمی، کتاب مقررات صادرات و واردات ۱۴۰۵)، کد نامگذاری ترکیبی اتحادیه اروپا (CN 2026)، طبقه‌بندی فعالیت (ISIC Rev.4، ISIC Rev.5، WZ 2025) و ویژگی‌های فنی هر خانواده (استانداردها، پروتکل‌ها، سطح Purdue، لایه RAMI 4.0 و …).
@@ -113,4 +117,6 @@ python3 -c "import json;k=json.load(open('data/ia-reference-kb-189-rNN.json'));o
 
 ## نحوه ارجاع
 
-> «جدول مرجع کالاها و خدمات اتوماسیون صنعتی»، نسخه 189-r24، ۲۹ آبان ۱۴۰۵. SHA-256 فایل اکسل: 4df7ca41…f42ce. نشانی مخزن: `https://github.com/mhebrahimi/industrial-automation-reference`
+> «جدول مرجع کالاها و خدمات اتوماسیون صنعتی»، نسخه 189-r24، ۲۹ آبان ۱۴۰۵. SHA-256 فایل اکسل: 4df7ca41…f42ce. نشانی مخزن: `https://github.com/mhebrahimi/industrial-automation-reference` — DOI: [10.5281/zenodo.24441029](https://doi.org/10.5281/zenodo.24441029)
+
+DOI کلی همه نسخه‌ها (همیشه به آخرین نسخه اشاره می‌کند): [10.5281/zenodo.24441028](https://doi.org/10.5281/zenodo.24441028)
